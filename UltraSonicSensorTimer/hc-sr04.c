@@ -7,8 +7,12 @@ double round(double);
  
 const double _16MHz_1clock = 0.0625; // Value of 1clock cycle in mikroseconds
  
-#define ECHO 0x40 //PB6
-#define TRIGGER 0x10 //PA4(OUTPUT)
+#define ECHO0 0x40 //PB6
+#define TRIGGER0 0x40 //PA6(OUTPUT)
+#define ECHO1 0x80 //PB7
+#define TRIGGER1 0x20 //PA5
+#define ECHO2 0x01 //PB0
+#define TRIGGER2 0x10 //PA4
 #define BLUE_LED 0x04 //PF2 onboard Blue LED
 #define GREEN_LED 0x08 //PF3 onboard Green LED
 #define RED_LED 0x02 //PF1 onboard Red LED
@@ -17,11 +21,11 @@ int32_t measureDistanceOnce(void) {
 		uint32_t highEdge,lowEdge;
 		int32_t ddistance; /*Distance in centimeters*/
     double travelTime = 0;
-    GPIO_PORTA_DATA_R &=~TRIGGER;
+    GPIO_PORTA_DATA_R &=~TRIGGER0;
     delay_Microsecond(12);
-    GPIO_PORTA_DATA_R |= TRIGGER;
+    GPIO_PORTA_DATA_R |= TRIGGER0;
     delay_Microsecond(12);
-    GPIO_PORTA_DATA_R &=~TRIGGER;
+    GPIO_PORTA_DATA_R &=~TRIGGER0;
     /*Capture firstEgde i.e. rising edge*/
     TIMER0_ICR_R =4;
     while((TIMER0_RIS_R & 4)==0){}; //Wait till captured
@@ -64,10 +68,10 @@ void InitRegisters(){
     SYSCTL_RCGCGPIO_R |=(1U << 0); //Enable clock for PORTA 
     SYSCTL_RCGCGPIO_R |=(1U << 1); //Enable clock for PORTB 
     SYSCTL_RCGCGPIO_R|=(1U << 5); //Enable clock for PORTF 
-    GPIO_PORTA_DIR_R |= TRIGGER;  
+    GPIO_PORTA_DIR_R |= TRIGGER0;  
     GPIO_PORTF_DIR_R |= RED_LED | GREEN_LED | BLUE_LED;
-    GPIO_PORTA_DEN_R |= TRIGGER;
-	  GPIO_PORTB_DEN_R |= ECHO;
+    GPIO_PORTA_DEN_R |= TRIGGER0;
+	  GPIO_PORTB_DEN_R |= ECHO0;
     GPIO_PORTF_DEN_R |= RED_LED | GREEN_LED | BLUE_LED;
 }
 
@@ -118,9 +122,9 @@ void Timer0_init(void)
 {
     SYSCTL_RCGCTIMER_R |= 0x01; 
     SYSCTL_RCGCGPIO_R |= 0x02; 
-    GPIO_PORTB_DIR_R &= ~ECHO;
-    GPIO_PORTB_DEN_R |=ECHO;
-    GPIO_PORTB_AFSEL_R |=ECHO;
+    GPIO_PORTB_DIR_R &= ~ECHO0;
+    GPIO_PORTB_DEN_R |=ECHO0;
+    GPIO_PORTB_AFSEL_R |=ECHO0;
     GPIO_PORTB_PCTL_R &= ~0x0F000000;
     GPIO_PORTB_PCTL_R |= 0x07000000;
  
