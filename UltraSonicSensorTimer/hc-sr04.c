@@ -73,28 +73,28 @@ void InitRegisters(){
 }
 
 void OutSignal(uint32_t value) {
-	GPIOF->DATA &= ~(RED_LED | GREEN_LED | BLUE_LED);
+	GPIO_PORTF_DATA_R &= ~(RED_LED | GREEN_LED | BLUE_LED);
 	
   if(value < 15) { 
-    GPIOF->DATA |= RED_LED;
+    GPIO_PORTF_DATA_R |= RED_LED;
 	}
   else if (value < 50) {
-    GPIOF->DATA |= RED_LED | BLUE_LED;
+    GPIO_PORTF_DATA_R |= RED_LED | BLUE_LED;
 	}
 	else if (value < 100) {
-		GPIOF->DATA |= RED_LED | GREEN_LED;
+		GPIO_PORTF_DATA_R |= RED_LED | GREEN_LED;
 	}
 	else if (value < 200) {
-		GPIOF->DATA |= BLUE_LED | GREEN_LED;
+		GPIO_PORTF_DATA_R |= BLUE_LED | GREEN_LED;
 	}
 	else if (value < 300) {
-		GPIOF->DATA |= BLUE_LED;
+		GPIO_PORTF_DATA_R |= BLUE_LED;
 	}
 	else if (value < 400) {
-		GPIOF->DATA |= GREEN_LED;
+		GPIO_PORTF_DATA_R |= GREEN_LED;
 	}
 	else {
-		GPIOF->DATA |= RED_LED | GREEN_LED | BLUE_LED;
+		GPIO_PORTF_DATA_R |= RED_LED | GREEN_LED | BLUE_LED;
 	}
 }
 
@@ -115,7 +115,7 @@ int main(void){
 void delay_Microsecond(uint32_t time)
 {
     int i;
-    SYSCTL_RCGCTIMER_R |=(1U << 1); 
+    SYSCTL_RCGCTIMER_R |= 0x02; 
     TIMER1_CTL_R=0;
     TIMER1_CFG_R=0x04;
     TIMER1_TAMR_R=0x02;
@@ -144,17 +144,31 @@ void delay_Microsecond(uint32_t time)
 }
 void Timer0_init(void)
 {
-    SYSCTL->RCGCTIMER |=(1U << 0); 
-    SYSCTL->RCGCGPIO |=(1U << 1); 
-    GPIOB->DIR &= ~ECHO;
-    GPIOB->DEN |=ECHO;
-    GPIOB->AFSEL |=ECHO;
-    GPIOB->PCTL &= ~0x0F000000;
-    GPIOB->PCTL |= 0x07000000;
+    SYSCTL_RCGCTIMER_R |= 0x01; 
+    SYSCTL_RCGCGPIO_R |= 0x02; 
+    GPIO_PORTB_DIR_R &= ~ECHO;
+    GPIO_PORTB_DEN_R |=ECHO;
+    GPIO_PORTB_AFSEL_R |=ECHO;
+    GPIO_PORTB_PCTL_R &= ~0x0F000000;
+    GPIO_PORTB_PCTL_R |= 0x07000000;
  
-    TIMER0->CTL &= ~1;
-    TIMER0->CFG = 4;
-    TIMER0->TAMR = 0x17;
-    TIMER0->CTL |= 0x0C;
-    TIMER0->CTL |= 1;
+    TIMER0_CTL_R &= ~1;
+    TIMER0_CFG_R = 4;
+    TIMER0_TAMR_R = 0x17;
+    TIMER0_CTL_R |= 0x0C;
+    TIMER0_CTL_R |= 1;
+	
+//	SYSCTL_RCGCTIMER_R |= 0x01; 
+//    SYSCTL_RCGCGPIO_R |= 0x02; 
+//    GPIOB->DIR &= ~ECHO;
+//    GPIOB->DEN |=ECHO;
+//    GPIOB->AFSEL |=ECHO;
+//    GPIOB->PCTL &= ~0x0F000000;
+//    GPIOB->PCTL |= 0x07000000;
+// 
+//    TIMER0->CTL &= ~1;
+//    TIMER0->CFG = 4;
+//    TIMER0->TAMR = 0x17;
+//    TIMER0->CTL |= 0x0C;
+//    TIMER0->CTL |= 1;
 }
