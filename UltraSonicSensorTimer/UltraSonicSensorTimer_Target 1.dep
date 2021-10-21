@@ -6,7 +6,7 @@ I (hc-sr04.h)(0x6171DE16)
 I (tm4c123gh6pm.h)(0x51D4E132)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C8A654)
 F (.\hc-sr04.h)(0x6171DE16)()
-F (.\hc-sr04.c)(0x6171EFAF)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\TI\TM4C123-DTM4C1231C3PM-o .\hc-sr04.o --omf_browse .\hc-sr04.crf --depend .\hc-sr04.d)
+F (.\hc-sr04.c)(0x6171F177)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\TI\TM4C123-DTM4C1231C3PM-o .\hc-sr04.o --omf_browse .\hc-sr04.crf --depend .\hc-sr04.d)
 I (hc-sr04.h)(0x6171DE16)
 I (tm4c123gh6pm.h)(0x51D4E132)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C8A654)

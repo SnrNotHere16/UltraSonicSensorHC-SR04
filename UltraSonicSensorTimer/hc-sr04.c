@@ -7,11 +7,11 @@ double round(double);
  
 const double _16MHz_1clock = 0.0625; // Value of 1clock cycle in mikroseconds
  
-#define ECHO (1U << 6) //PB6
-#define TRIGGER (1U << 4) //PA4(OUTPUT)
-#define BLUE_LED (1U << 2) //PF2 onboard Blue LED
-#define GREEN_LED (1U << 3) //PF3 onboard Green LED
-#define RED_LED (1U << 1) //PF1 onboard Red LED
+#define ECHO 0x40 //PB6
+#define TRIGGER 0x10 //PA4(OUTPUT)
+#define BLUE_LED 0x04 //PF2 onboard Blue LED
+#define GREEN_LED 0x08 //PF3 onboard Green LED
+#define RED_LED 0x02 //PF1 onboard Red LED
 
 int32_t measureDistanceOnce(void) { 
 		uint32_t highEdge,lowEdge;
