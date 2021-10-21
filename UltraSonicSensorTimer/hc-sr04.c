@@ -1,4 +1,3 @@
-#include <TM4C123.h>
 #include "hc-sr04.h"
 
 void delay_Microsecond(uint32_t time);
@@ -18,20 +17,20 @@ int32_t measureDistanceOnce(void) {
 		uint32_t highEdge,lowEdge;
 		int32_t ddistance; /*Distance in centimeters*/
     double travelTime = 0;
-    GPIOA->DATA &=~TRIGGER;
+    GPIO_PORTA_DATA_R &=~TRIGGER;
     delay_Microsecond(12);
-    GPIOA->DATA |= TRIGGER;
+    GPIO_PORTA_DATA_R |= TRIGGER;
     delay_Microsecond(12);
-    GPIOA->DATA &=~TRIGGER;
+    GPIO_PORTA_DATA_R &=~TRIGGER;
     /*Capture firstEgde i.e. rising edge*/
-    TIMER0->ICR =4;
-    while((TIMER0->RIS & 4)==0){}; //Wait till captured
-		highEdge =  TIMER0->TAR;
+    TIMER0_ICR_R =4;
+    while((TIMER0_RIS_R & 4)==0){}; //Wait till captured
+		highEdge =  TIMER0_TAR_R;
 
 		/*Capture secondEdge i.e. falling edge */
-		TIMER0->ICR =4; //clear timer capture flag
-		while((TIMER0->RIS & 4)  ==0){};
-		lowEdge = TIMER0->TAR;
+		TIMER0_ICR_R =4; //clear timer capture flag
+		while((TIMER0_RIS_R & 4)  ==0){};
+		lowEdge = TIMER0_TAR_R;
 		travelTime = (lowEdge - highEdge) * _16MHz_1clock;
 		if (travelTime < 58) {
 			ddistance = -1;
@@ -62,14 +61,14 @@ int32_t measureD() {
 }
 
 void InitRegisters(){
-    SYSCTL->RCGCGPIO |=(1U << 0); //Enable clock for PORTA 
-    SYSCTL->RCGCGPIO |=(1U << 1); //Enable clock for PORTB 
-    SYSCTL->RCGCGPIO |=(1U << 5); //Enable clock for PORTF 
-    GPIOA->DIR |= TRIGGER;  
-    GPIOF->DIR |= RED_LED | GREEN_LED | BLUE_LED;
-    GPIOA->DEN |= TRIGGER;
-	  GPIOB->DEN |= ECHO;
-    GPIOF->DEN |= RED_LED | GREEN_LED | BLUE_LED;
+    SYSCTL_RCGCGPIO_R |=(1U << 0); //Enable clock for PORTA 
+    SYSCTL_RCGCGPIO_R |=(1U << 1); //Enable clock for PORTB 
+    SYSCTL_RCGCGPIO_R|=(1U << 5); //Enable clock for PORTF 
+    GPIO_PORTA_DIR_R |= TRIGGER;  
+    GPIO_PORTF_DIR_R |= RED_LED | GREEN_LED | BLUE_LED;
+    GPIO_PORTA_DEN_R |= TRIGGER;
+	  GPIO_PORTB_DEN_R |= ECHO;
+    GPIO_PORTF_DEN_R |= RED_LED | GREEN_LED | BLUE_LED;
 }
 
 void OutSignal(uint32_t value) {

@@ -1,6 +1,5 @@
 #include "hc-sr04.h"
 #include "tm4c123gh6pm.h"
-#include <TM4C123.h>
 // user button connected to PF4 (increment counter on falling edge)
 
 
