@@ -97,19 +97,6 @@ void OutSignal(uint32_t value) {
 	}
 }
 
-/*
-int main(void){
-		InitRegisters();
-
-    while(1){
-        Timer0_init();
-         measureD();
-    OutSignal(measureD() < 15); 
-   delay_Microsecond(100);
- 
-  }
-}*/
-
 
 void delay_Microsecond(uint32_t time)
 {
@@ -126,20 +113,6 @@ void delay_Microsecond(uint32_t time)
        while((TIMER1_RIS_R & 0x1) == 0) {}
         TIMER1_ICR_R = 0x1;
     }
-//		    int i;
-//    SYSCTL->RCGCTIMER |= 1;
-//    TIMER1_CTL_R=0;
-//    TIMER1_CFG_R=0x04;
-//    TIMER1_TAMR_R=0x02;
-//    TIMER1_TAILR_R= 16-1;
-//    TIMER1_ICR_R =0x1;
-//    TIMER1_CTL_R |=0x01;
-// 
-////    for(i = 0; i < time; i++){ 
-////       while((TIMER1_RIS_R & 0x1) == 0) {}
-////        TIMER1_ICR_R = 0x1;
-////			 }
-// 
 }
 void Timer0_init(void)
 {
@@ -156,18 +129,4 @@ void Timer0_init(void)
     TIMER0_TAMR_R = 0x17;
     TIMER0_CTL_R |= 0x0C;
     TIMER0_CTL_R |= 1;
-	
-//	SYSCTL_RCGCTIMER_R |= 0x01; 
-//    SYSCTL_RCGCGPIO_R |= 0x02; 
-//    GPIOB->DIR &= ~ECHO;
-//    GPIOB->DEN |=ECHO;
-//    GPIOB->AFSEL |=ECHO;
-//    GPIOB->PCTL &= ~0x0F000000;
-//    GPIOB->PCTL |= 0x07000000;
-// 
-//    TIMER0->CTL &= ~1;
-//    TIMER0->CFG = 4;
-//    TIMER0->TAMR = 0x17;
-//    TIMER0->CTL |= 0x0C;
-//    TIMER0->CTL |= 1;
 }
