@@ -1,6 +1,6 @@
 //#ifndef HC_SR04_H
 //#define HC_SR04_H
-
+#include "tm4c123gh6pm.h"
 #include <stdint.h>
 
 void InitRegisters(void);

@@ -115,25 +115,38 @@ int main(void){
 void delay_Microsecond(uint32_t time)
 {
     int i;
-    SYSCTL->RCGCTIMER |=(1U << 1); 
-        TIMER1->CTL=0;
-    TIMER1->CFG=0x04;
-    TIMER1->TAMR=0x02;
-    TIMER1->TAILR= 16-1;
-    TIMER1->ICR =0x1;
-    TIMER1->CTL |=0x01;
+    SYSCTL_RCGCTIMER_R |=(1U << 1); 
+    TIMER1_CTL_R=0;
+    TIMER1_CFG_R=0x04;
+    TIMER1_TAMR_R=0x02;
+    TIMER1_TAILR_R= 16-1;
+    TIMER1_ICR_R =0x1;
+    TIMER1_CTL_R |=0x01;
  
     for(i = 0; i < time; i++){ 
-       while((TIMER1->RIS & 0x1) == 0) {}
-        TIMER1->ICR = 0x1;
+       while((TIMER1_RIS_R & 0x1) == 0) {}
+        TIMER1_ICR_R = 0x1;
     }
- 
+//		    int i;
+//    SYSCTL->RCGCTIMER |= 1;
+//    TIMER1_CTL_R=0;
+//    TIMER1_CFG_R=0x04;
+//    TIMER1_TAMR_R=0x02;
+//    TIMER1_TAILR_R= 16-1;
+//    TIMER1_ICR_R =0x1;
+//    TIMER1_CTL_R |=0x01;
+// 
+////    for(i = 0; i < time; i++){ 
+////       while((TIMER1_RIS_R & 0x1) == 0) {}
+////        TIMER1_ICR_R = 0x1;
+////			 }
+// 
 }
 void Timer0_init(void)
 {
     SYSCTL->RCGCTIMER |=(1U << 0); 
-        SYSCTL->RCGCGPIO |=(1U << 1); 
-        GPIOB->DIR &= ~ECHO;
+    SYSCTL->RCGCGPIO |=(1U << 1); 
+    GPIOB->DIR &= ~ECHO;
     GPIOB->DEN |=ECHO;
     GPIOB->AFSEL |=ECHO;
     GPIOB->PCTL &= ~0x0F000000;

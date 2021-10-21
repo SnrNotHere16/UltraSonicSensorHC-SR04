@@ -8,3 +8,4 @@
 .\hc-sr04.o: C:\Keil\ARM\CMSIS\Include\core_cm4_simd.h
 .\hc-sr04.o: C:\Keil\ARM\Inc\TI\TM4C123\system_TM4C123.h
 .\hc-sr04.o: hc-sr04.h
+.\hc-sr04.o: tm4c123gh6pm.h
