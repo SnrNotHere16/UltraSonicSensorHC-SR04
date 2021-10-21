@@ -1,6 +1,6 @@
 #include "hc-sr04.h"
 #include "tm4c123gh6pm.h"
-
+#include <TM4C123.h>
 // user button connected to PF4 (increment counter on falling edge)
 
 #define NVIC_EN0_R              (*((volatile unsigned long *)0xE000E100))  // IRQ 0 to 31 Set Enable Register
@@ -61,22 +61,16 @@ int main(void){
 	int32_t dist = 0;
 	char distStr[20] = "";
   EdgeCounter_Init();           // initialize GPIO Port F interrupt
-	Nokia5110_Init();
-	Nokia5110_Clear();
-	Nokia5110_SetCursor(0, 0);
-	Nokia5110_OutString("Distance");
 	
 	InitRegisters();
-	
+GPIOF->DATA |= 0x02;
   while(1){
 		//WaitForInterrupt();
     Timer0_init();
 		dist = measureD();
 		OutSignal(dist);
-		Nokia5110_SetCursor(0, 1);
 		//Nokia5110_OutUDec(dist);
 		sprintf(distStr, "%d cm     ", dist);
-		Nokia5110_OutString(distStr);
 		delay_Microsecond(10000);
   }
 }
