@@ -51,10 +51,10 @@ int main(void){
 	
   while(1){
 		//WaitForInterrupt();
-    Timer0_init();
+    Timer0A_init();
 		dist = measureD();
 		OutSignal(dist);
-		sprintf(distStr, "%d cm     ", dist);
+		sprintf(distStr, "%d cm0     ", dist);
 	  UART_OutString(distStr); 
 		delay_Microsecond(10000);
   }

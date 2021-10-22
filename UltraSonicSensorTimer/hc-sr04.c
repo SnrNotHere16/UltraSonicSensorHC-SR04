@@ -118,7 +118,7 @@ void delay_Microsecond(uint32_t time)
         TIMER1_ICR_R = 0x1;
     }
 }
-void Timer0_init(void)
+void Timer0A_init(void)
 {
     SYSCTL_RCGCTIMER_R |= 0x01; 
     SYSCTL_RCGCGPIO_R |= 0x02; 
@@ -133,4 +133,22 @@ void Timer0_init(void)
     TIMER0_TAMR_R = 0x17;
     TIMER0_CTL_R |= 0x0C;
     TIMER0_CTL_R |= 1;
+}
+
+void Timer0B_init(void){
+	//PB7
+	  SYSCTL_RCGCTIMER_R |= 0x01;  //pg 338
+    SYSCTL_RCGCGPIO_R |= 0x02; 
+    GPIO_PORTB_DIR_R &= ~ECHO1;
+    GPIO_PORTB_DEN_R |=ECHO1;
+    GPIO_PORTB_AFSEL_R |=ECHO1;
+    GPIO_PORTB_PCTL_R &= ~0xF0000000; //pg 668
+    GPIO_PORTB_PCTL_R |= 0x70000000; //pg 668
+ 
+    TIMER0_CTL_R &= ~1; //pg 737 disable control register 
+    TIMER0_CFG_R = 4; //pg 727 set 16 bit timer
+    TIMER0_TBMR_R = 0x17; // pg 733 Capture mode, Edge Time mode, Timer count up
+    TIMER0_CTL_R |= 0x0C; //pg 737 Both Edges
+    TIMER0_CTL_R |= 1; //pg 737 Enable
+	
 }
