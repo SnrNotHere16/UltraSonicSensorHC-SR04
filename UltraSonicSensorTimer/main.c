@@ -1,5 +1,7 @@
 #include "hc-sr04.h"
 #include "tm4c123gh6pm.h"
+#include "UART.h"
+#include "PLL.h"
 // user button connected to PF4 (increment counter on falling edge)
 
 
@@ -42,15 +44,18 @@ int sprintf(char*, const char*, ...);
 int main(void){
 	int32_t dist = 0;
 	char distStr[20] = "";
+	PLL_Init();
   EdgeCounter_Init();           // initialize GPIO Port F interrupt
-	
+	UART0_Init();
 	InitRegisters();
+	
   while(1){
 		//WaitForInterrupt();
     Timer0_init();
 		dist = measureD();
 		OutSignal(dist);
 		sprintf(distStr, "%d cm     ", dist);
+	  UART_OutString(distStr); 
 		delay_Microsecond(10000);
   }
 }

@@ -12,24 +12,25 @@ assembling startup.s...
 compiling main.c...
 hc-sr04.h(13): warning:  #1-D: last line of file ends without a newline
   //#endif  HC_SR04_H
-main.c(56): warning:  #1-D: last line of file ends without a newline
+UART.h(122): warning:  #1-D: last line of file ends without a newline
+  unsigned char UART1_NonBlockingInChar(void);
+main.c(61): warning:  #1-D: last line of file ends without a newline
   }
-main.c: 2 warnings, 0 errors
+main.c: 3 warnings, 0 errors
 compiling hc-sr04.c...
 hc-sr04.h(13): warning:  #1-D: last line of file ends without a newline
   //#endif  HC_SR04_H
 hc-sr04.c: 1 warning, 0 errors
+compiling UART.c...
+UART.h(122): warning:  #1-D: last line of file ends without a newline
+  unsigned char UART1_NonBlockingInChar(void);
+UART.c: 1 warning, 0 errors
+compiling PLL.c...
 linking...
-Program Size: Code=4756 RO-data=32 RW-data=4 ZI-data=1124  
-".\UltraSonicSensorTimer.axf" - 0 Error(s), 3 Warning(s).
+Program Size: Code=5608 RO-data=32 RW-data=4 ZI-data=1124  
+".\UltraSonicSensorTimer.axf" - 0 Error(s), 5 Warning(s).
 Load "C:\\Users\\OAkun\\Desktop\\UltraSonicSensorTimer\\UltraSonicSensorTimer.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.
 Programming Done.
 Verify OK.
-traSonicSensorTimer.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-load failed  -  Could not load file 'C:\Users\OAkun\Desktop\UltraSonicSensorTimer\UltraSonicSensorTimer.axf'

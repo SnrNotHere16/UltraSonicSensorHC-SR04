@@ -425,6 +425,21 @@
               <FileType>5</FileType>
               <FilePath>.\hc-sr04.h</FilePath>
             </File>
+            <File>
+              <FileName>hc-sr04.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\hc-sr04.c</FilePath>
+            </File>
+            <File>
+              <FileName>UART.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\UART.h</FilePath>
+            </File>
+            <File>
+              <FileName>UART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\UART.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
