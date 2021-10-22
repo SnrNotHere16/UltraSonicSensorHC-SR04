@@ -27,14 +27,14 @@ int32_t measureDistanceOnce(void) {
     delay_Microsecond(12);
     GPIO_PORTA_DATA_R &=~TRIGGER0;
     /*Capture firstEgde i.e. rising edge*/
-    TIMER0_ICR_R =4;
-    while((TIMER0_RIS_R & 4)==0){}; //Wait till captured
-		highEdge =  TIMER0_TAR_R;
+    TIMER2_ICR_R =4;
+    while((TIMER2_RIS_R & 4)==0){}; //Wait till captured
+		highEdge =  TIMER2_TAR_R;
 
 		/*Capture secondEdge i.e. falling edge */
-		TIMER0_ICR_R =4; //clear timer capture flag
-		while((TIMER0_RIS_R & 4)  ==0){};
-		lowEdge = TIMER0_TAR_R;
+		TIMER2_ICR_R =4; //clear timer capture flag
+		while((TIMER2_RIS_R & 4)  ==0){};
+		lowEdge = TIMER2_TAR_R;
 		travelTime = (lowEdge - highEdge) * _16MHz_1clock;
 		if (travelTime < 58) {
 			ddistance = -1;
@@ -72,6 +72,7 @@ void InitRegisters(){
     GPIO_PORTF_DIR_R |= RED_LED | GREEN_LED | BLUE_LED;
     GPIO_PORTA_DEN_R |= TRIGGER0;
 	  GPIO_PORTB_DEN_R |= ECHO0;
+		GPIO_PORTB_DEN_R |= ECHO1; 
     GPIO_PORTF_DEN_R |= RED_LED | GREEN_LED | BLUE_LED;
 }
 
@@ -151,4 +152,22 @@ void Timer0B_init(void){
     TIMER0_CTL_R |= 0x0C; //pg 737 Both Edges
     TIMER0_CTL_R |= 1; //pg 737 Enable
 	
+}
+
+void Timer2A_init(void){
+	//PB0
+	  SYSCTL_RCGCTIMER_R |= 0x04;  //pg 338
+    SYSCTL_RCGCGPIO_R |= 0x02; 
+    GPIO_PORTB_DIR_R &= ~ECHO2;
+    GPIO_PORTB_DEN_R |=ECHO2;
+    GPIO_PORTB_AFSEL_R |=ECHO2;
+    GPIO_PORTB_PCTL_R &= ~0x0000000F; //pg 668
+    GPIO_PORTB_PCTL_R |= 0x00000007; //pg 668
+ 
+    TIMER2_CTL_R &= ~1; //pg 737 disable control register 
+    TIMER2_CFG_R = 4; //pg 727 set 16 bit timer
+    TIMER2_TBMR_R = 0x17; // pg 733 Capture mode, Edge Time mode, Timer count up
+    TIMER2_CTL_R |= 0x0C; //pg 737 Both Edges
+    TIMER2_CTL_R |= 1; //pg 737 Enable
+		
 }

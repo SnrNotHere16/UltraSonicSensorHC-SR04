@@ -52,6 +52,7 @@ int main(void){
   while(1){
 		//WaitForInterrupt();
     Timer0A_init();
+		Timer2A_init(); 
 		dist = measureD();
 		OutSignal(dist);
 		sprintf(distStr, "%d cm0     ", dist);

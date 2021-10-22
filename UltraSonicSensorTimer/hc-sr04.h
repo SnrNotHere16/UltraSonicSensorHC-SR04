@@ -6,6 +6,7 @@
 void InitRegisters(void);
 void Timer0A_init(void);
 void Timer0B_init(void);
+void Timer2A_init(void); 
 void delay_Microsecond(uint32_t time);
 int32_t measureD(void);
 void OutSignal(uint32_t value);
