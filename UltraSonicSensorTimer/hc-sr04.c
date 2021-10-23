@@ -112,14 +112,17 @@ int32_t measureDistanceOnce2(void) {
     return ddistance;
 }
 
-int32_t measureD() {
+int32_t measureD(char timer) {
    uint32_t counter = 0;
    int32_t dist = 0;
 	 int32_t instantDist = 0;
 	
 	 for (counter = 0; counter < 100; ++counter) {
-		 //instantDist = measureDistanceOnce();
-	 //instantDist = measureDistanceOnce1(); 
+		if (timer == 0)
+		 instantDist = measureDistanceOnce();
+		else if (timer == 1)
+	   instantDist = measureDistanceOnce1(); 
+		else 
 		 instantDist = measureDistanceOnce2();
 		 if (instantDist > 0 && instantDist < 9999) {
 		    dist = (dist + instantDist) / 2;

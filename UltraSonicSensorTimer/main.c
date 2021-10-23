@@ -17,7 +17,9 @@ int sprintf(char*, const char*, ...);
 //debug code
 int main(void){
 	int32_t dist = 0;
-	char distStr[20] = "";
+	char distStr0[20] = "";
+	char distStr1[20] = "";
+	char distStr2[20] = "";
 	PLL_Init();
 	UART0_Init();
 	InitRegisters();
@@ -25,10 +27,14 @@ int main(void){
     Timer0A_init();
 		Timer2A_init(); 
 		Timer3A_init();
-		dist = measureD();
+		dist = measureD(0);
 		OutSignal(dist);
-	  sprintf(distStr, "%d cm0     ", dist);
-	  UART_OutString(distStr); 
+	  sprintf(distStr0, "%d cm0     ", dist);
+		UART_OutString(distStr0); 
+		dist = measureD(1);
+		OutSignal(dist);
+	  sprintf(distStr1, "%d cm1     ", dist);
+	  UART_OutString(distStr1); 
 		delay_Microsecond(10000);
   }
 }

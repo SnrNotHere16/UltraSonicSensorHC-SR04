@@ -8,7 +8,7 @@ void Timer0A_init(void);
 void Timer2A_init(void); 
 void Timer3A_init(void);
 void delay_Microsecond(uint32_t time);
-int32_t measureD(void);
+int32_t measureD(char timer);
 void OutSignal(uint32_t value);
 void TriggerSignal(void);
 

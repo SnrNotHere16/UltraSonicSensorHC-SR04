@@ -14,9 +14,11 @@ hc-sr04.h(15): warning:  #1-D: last line of file ends without a newline
   //#endif  HC_SR04_H
 UART.h(122): warning:  #1-D: last line of file ends without a newline
   unsigned char UART1_NonBlockingInChar(void);
-main.c(34): warning:  #1-D: last line of file ends without a newline
+main.c(40): warning:  #1-D: last line of file ends without a newline
   }
-main.c: 3 warnings, 0 errors
+main.c(22): warning:  #177-D: variable "distStr2" was declared but never referenced
+        char distStr2[20] = "";
+main.c: 4 warnings, 0 errors
 compiling hc-sr04.c...
 hc-sr04.h(15): warning:  #1-D: last line of file ends without a newline
   //#endif  HC_SR04_H
@@ -29,8 +31,13 @@ UART.h(122): warning:  #1-D: last line of file ends without a newline
 UART.c: 1 warning, 0 errors
 compiling PLL.c...
 linking...
-Program Size: Code=6144 RO-data=16 RW-data=0 ZI-data=1120  
-".\UltraSonicSensorTimer.axf" - 0 Error(s), 6 Warning(s).
+Program Size: Code=6224 RO-data=16 RW-data=0 ZI-data=1120  
+".\UltraSonicSensorTimer.axf" - 0 Error(s), 7 Warning(s).
+Load "C:\\Users\\OAkun\\Desktop\\UltraSonicSensorTimer\\UltraSonicSensorTimer.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
 Load "C:\\Users\\OAkun\\Desktop\\UltraSonicSensorTimer\\UltraSonicSensorTimer.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.
