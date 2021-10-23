@@ -1,5 +1,5 @@
 #include "hc-sr04.h"
-
+#include "UART.h"
 void delay_Microsecond(uint32_t time);
 void Timer0_init(void);
 
@@ -18,6 +18,40 @@ const double _16MHz_1clock = 0.0625; // Value of 1clock cycle in mikroseconds
 #define RED_LED 0x02 //PF1 onboard Red LED
 
 int32_t measureDistanceOnce(void) { 
+		uint32_t highEdge,lowEdge;
+		int32_t ddistance; /*Distance in centimeters*/
+    double travelTime = 0;
+    GPIO_PORTA_DATA_R &=~TRIGGER0;
+    delay_Microsecond(12);
+    GPIO_PORTA_DATA_R |= TRIGGER0;
+    delay_Microsecond(12);
+    GPIO_PORTA_DATA_R &=~TRIGGER0;
+		 //UART_OutString("Stuck Before zero while loop\n"); 
+    /*Capture firstEgde i.e. rising edge*/
+    TIMER0_ICR_R =4;
+		
+    while((TIMER0_RIS_R & 4)==0){}; //Wait till captured
+		highEdge =  TIMER0_TAR_R;
+		//UART_OutString("Stuck after zero while loop\n"); 
+		/*Capture secondEdge i.e. falling edge */
+		TIMER0_ICR_R =4; //clear timer capture flag
+		while((TIMER0_RIS_R & 4)  ==0){};
+		lowEdge = TIMER0_TAR_R;
+		travelTime = (lowEdge - highEdge) * _16MHz_1clock;
+		if (travelTime < 58) {
+			ddistance = -1;
+		}
+		else if (travelTime > 11662) {
+			ddistance = 9999;
+		}
+		else {
+		  ddistance = round((travelTime * 0.5) * 0.0343);
+		}
+
+    return ddistance;
+}
+
+int32_t measureDistanceOnce1(void) { 
 		uint32_t highEdge,lowEdge;
 		int32_t ddistance; /*Distance in centimeters*/
     double travelTime = 0;
@@ -49,13 +83,16 @@ int32_t measureDistanceOnce(void) {
     return ddistance;
 }
 
+
 int32_t measureD() {
    uint32_t counter = 0;
    int32_t dist = 0;
 	 int32_t instantDist = 0;
 	
 	 for (counter = 0; counter < 100; ++counter) {
-		 instantDist = measureDistanceOnce();
+		 //instantDist = measureDistanceOnce();
+	   instantDist = measureDistanceOnce1(); 
+		 //instantDist = measureDistanceOnce2();
 		 if (instantDist > 0 && instantDist < 9999) {
 		    dist = (dist + instantDist) / 2;
 		 }
@@ -72,7 +109,7 @@ void InitRegisters(){
     GPIO_PORTF_DIR_R |= RED_LED | GREEN_LED | BLUE_LED;
     GPIO_PORTA_DEN_R |= TRIGGER0;
 	  GPIO_PORTB_DEN_R |= ECHO0;
-		GPIO_PORTB_DEN_R |= ECHO1; 
+		GPIO_PORTB_DEN_R |= ECHO2; 
     GPIO_PORTF_DEN_R |= RED_LED | GREEN_LED | BLUE_LED;
 }
 
@@ -160,14 +197,13 @@ void Timer2A_init(void){
     SYSCTL_RCGCGPIO_R |= 0x02; 
     GPIO_PORTB_DIR_R &= ~ECHO2;
     GPIO_PORTB_DEN_R |=ECHO2;
-    GPIO_PORTB_AFSEL_R |=ECHO2;
+    GPIO_PORTB_AFSEL_R |= ECHO2;
     GPIO_PORTB_PCTL_R &= ~0x0000000F; //pg 668
     GPIO_PORTB_PCTL_R |= 0x00000007; //pg 668
  
     TIMER2_CTL_R &= ~1; //pg 737 disable control register 
     TIMER2_CFG_R = 4; //pg 727 set 16 bit timer
-    TIMER2_TBMR_R = 0x17; // pg 733 Capture mode, Edge Time mode, Timer count up
+    TIMER2_TAMR_R = 0x17; // pg 733 Capture mode, Edge Time mode, Timer count up
     TIMER2_CTL_R |= 0x0C; //pg 737 Both Edges
     TIMER2_CTL_R |= 1; //pg 737 Enable
-		
 }
