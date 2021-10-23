@@ -44,20 +44,19 @@ int sprintf(char*, const char*, ...);
 int main(void){
 	int32_t dist = 0;
 	char distStr[20] = "";
-	//PLL_Init();
+	PLL_Init();
   EdgeCounter_Init();           // initialize GPIO Port F interrupt
 	UART0_Init();
 	InitRegisters();
   while(1){
 		//WaitForInterrupt();
     //Timer0A_init();
-		//Timer0B_init(); 
 		//Timer2A_init(); 
 		Timer3A_init();
 		dist = measureD();
 		OutSignal(dist);
-	//	sprintf(distStr, "%d cm0     ", dist);
-	 // UART_OutString(distStr); 
+	  sprintf(distStr, "%d cm0     ", dist);
+	  UART_OutString(distStr); 
 		delay_Microsecond(10000);
   }
 }

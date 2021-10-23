@@ -5,11 +5,11 @@ void Timer0_init(void);
 
 double round(double);
  
-const double _16MHz_1clock = 0.0625; // Value of 1clock cycle in mikroseconds
- 
+//const double _16MHz_1clock = 0.0625; // Value of 1clock cycle in mikroseconds
+ const double _80MHz_1clock = 0.0125;
 #define ECHO0 0x40 //PB6
 #define TRIGGER0 0x40 //PA6(OUTPUT)
-#define ECHO1 0x01 //PB7
+#define ECHO1 0x01 //PB0
 #define TRIGGER1 0x20 //PA5
 #define ECHO2 0x04 //PB2
 #define TRIGGER2 0x10 //PA4
@@ -35,7 +35,7 @@ int32_t measureDistanceOnce(void) {
 		TIMER0_ICR_R =4; //clear timer capture flag
 		while((TIMER0_RIS_R & 4)  ==0){};
 		lowEdge = TIMER0_TAR_R;
-		travelTime = (lowEdge - highEdge) * _16MHz_1clock;
+		travelTime = (lowEdge - highEdge) * _80MHz_1clock;
 		if (travelTime < 58) {
 			ddistance = -1;
 		}
@@ -53,21 +53,20 @@ int32_t measureDistanceOnce1(void) {
 		uint32_t highEdge,lowEdge;
 		int32_t ddistance; /*Distance in centimeters*/
     double travelTime = 0;
-    GPIO_PORTA_DATA_R &=~TRIGGER0;
+    GPIO_PORTA_DATA_R &=~TRIGGER1;
     delay_Microsecond(12);
-    GPIO_PORTA_DATA_R |= TRIGGER0;
+    GPIO_PORTA_DATA_R |= TRIGGER1;
     delay_Microsecond(12);
-    GPIO_PORTA_DATA_R &=~TRIGGER0;
+    GPIO_PORTA_DATA_R &=~TRIGGER1;
     /*Capture firstEgde i.e. rising edge*/
     TIMER2_ICR_R =4;
     while((TIMER2_RIS_R & 4)==0){}; //Wait till captured
 		highEdge =  TIMER2_TAR_R;
-
 		/*Capture secondEdge i.e. falling edge */
 		TIMER2_ICR_R =4; //clear timer capture flag
 		while((TIMER2_RIS_R & 4)  ==0){};
 		lowEdge = TIMER2_TAR_R;
-		travelTime = (lowEdge - highEdge) * _16MHz_1clock;
+		travelTime = (lowEdge - highEdge) * _80MHz_1clock;
 		if (travelTime < 58) {
 			ddistance = -1;
 		}
@@ -85,11 +84,11 @@ int32_t measureDistanceOnce2(void) {
 		uint32_t highEdge,lowEdge;
 		int32_t ddistance; /*Distance in centimeters*/
     double travelTime = 0;
-    GPIO_PORTA_DATA_R &=~TRIGGER0;
+    GPIO_PORTA_DATA_R &=~TRIGGER2;
     delay_Microsecond(12);
-    GPIO_PORTA_DATA_R |= TRIGGER0;
+    GPIO_PORTA_DATA_R |= TRIGGER2;
     delay_Microsecond(12);
-    GPIO_PORTA_DATA_R &=~TRIGGER0;
+    GPIO_PORTA_DATA_R &=~TRIGGER2;
     /*Capture firstEgde i.e. rising edge*/
     TIMER3_ICR_R =4;
     while((TIMER3_RIS_R & 4)==0){}; //Wait till captured
@@ -99,7 +98,7 @@ int32_t measureDistanceOnce2(void) {
 		TIMER3_ICR_R =4; //clear timer capture flag
 		while((TIMER3_RIS_R & 4)  ==0){};
 		lowEdge = TIMER3_TAR_R;
-		travelTime = (lowEdge - highEdge) * _16MHz_1clock;
+		travelTime = (lowEdge - highEdge) * _80MHz_1clock;
 		if (travelTime < 58) {
 			ddistance = -1;
 		}
@@ -120,7 +119,7 @@ int32_t measureD() {
 	
 	 for (counter = 0; counter < 100; ++counter) {
 		 //instantDist = measureDistanceOnce();
-	 // instantDist = measureDistanceOnce1(); 
+	 //instantDist = measureDistanceOnce1(); 
 		 instantDist = measureDistanceOnce2();
 		 if (instantDist > 0 && instantDist < 9999) {
 		    dist = (dist + instantDist) / 2;
@@ -134,9 +133,13 @@ void InitRegisters(){
     SYSCTL_RCGCGPIO_R |=(1U << 0); //Enable clock for PORTA 
     SYSCTL_RCGCGPIO_R |=(1U << 1); //Enable clock for PORTB 
     SYSCTL_RCGCGPIO_R|=(1U << 5); //Enable clock for PORTF 
-    GPIO_PORTA_DIR_R |= TRIGGER0;  
+    GPIO_PORTA_DIR_R |= TRIGGER0;
+		GPIO_PORTA_DIR_R |= TRIGGER1;
+	  GPIO_PORTA_DIR_R |= TRIGGER2;
     GPIO_PORTF_DIR_R |= RED_LED | GREEN_LED | BLUE_LED;
     GPIO_PORTA_DEN_R |= TRIGGER0;
+	  GPIO_PORTA_DEN_R |= TRIGGER1;
+	  GPIO_PORTA_DEN_R |= TRIGGER2;
 	  GPIO_PORTB_DEN_R |= ECHO0;
 	  GPIO_PORTB_DEN_R |= ECHO1; 
 		GPIO_PORTB_DEN_R |= ECHO2; 
@@ -220,6 +223,7 @@ void Timer2A_init(void){
     TIMER2_TAMR_R = 0x17; // pg 733 Capture mode, Edge Time mode, Timer count up
     TIMER2_CTL_R |= 0x0C; //pg 737 Both Edges
     TIMER2_CTL_R |= 1; //pg 737 Enable
+	
 }
 
 void Timer3A_init(void){
