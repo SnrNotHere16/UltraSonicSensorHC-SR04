@@ -40,8 +40,8 @@ void UART0_Init(void){
   SYSCTL_RCGC1_R |= SYSCTL_RCGC1_UART0; // activate UART0
   SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOA; // activate port A
   UART0_CTL_R &= ~UART_CTL_UARTEN;      // disable UART
-  UART0_IBRD_R = 27;                    // IBRD = int(50,000,000 / (16 * 115,200)) = int(27.1267)
-  UART0_FBRD_R = 8;                     // FBRD = int(0.1267 * 64 + 0.5) = 8
+  UART0_IBRD_R = 8;                    // IBRD = int(50,000,000 / (16 * 115,200)) = int(27.1267)
+  UART0_FBRD_R = 44;                     // FBRD = int(0.1267 * 64 + 0.5) = 8
  
   UART0_LCRH_R = (UART_LCRH_WLEN_8|UART_LCRH_FEN);
   UART0_CTL_R |= UART_CTL_UARTEN;       // enable UART
@@ -59,8 +59,8 @@ void UART1_Init(void)
     SYSCTL_RCGC2_R |= 0x00000002; // activate port B
 		while((SYSCTL_RCGC2_R&0x02) == 0){};
     UART1_CTL_R &= ~0x01;      // disable UART
-    UART1_IBRD_R = 27;                    // IBRD = int(50,000,000 / (16 * 115,200)) = int(27.1267)
-    UART1_FBRD_R = 8;                     // FBRD = int(0.1267 * 64 + 0.5) = 8
+    UART1_IBRD_R = 8;                    // IBRD = int(50,000,000 / (16 * 115,200)) = int(27.1267)
+    UART1_FBRD_R = 44;                     // FBRD = int(0.1267 * 64 + 0.5) = 8
                                         // 8 bit word length (no parity bits, one stop bit, FIFOs)
     UART1_LCRH_R = (0x70);
     UART1_CTL_R |= 0x01;       // enable UART

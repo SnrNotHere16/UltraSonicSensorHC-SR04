@@ -5,8 +5,8 @@ void Timer0_init(void);
 
 double round(double);
  
-//const double _16MHz_1clock = 0.0625; // Value of 1clock cycle in mikroseconds
- const double _80MHz_1clock = 0.0125;
+const double _16MHz_1clock = 0.0625; // Value of 1clock cycle in mikroseconds
+ //const double _80MHz_1clock = 0.0125;
 #define ECHO0 0x40 //PB6
 #define TRIGGER0 0x40 //PA6(OUTPUT)
 #define ECHO1 0x01 //PB0
@@ -35,7 +35,7 @@ int32_t measureDistanceOnce(void) {
 		TIMER0_ICR_R =4; //clear timer capture flag
 		while((TIMER0_RIS_R & 4)  ==0){};
 		lowEdge = TIMER0_TAR_R;
-		travelTime = (lowEdge - highEdge) * _80MHz_1clock;
+		travelTime = (lowEdge - highEdge) * _16MHz_1clock;
 		if (travelTime < 58) {
 			ddistance = -1;
 		}
@@ -66,7 +66,7 @@ int32_t measureDistanceOnce1(void) {
 		TIMER2_ICR_R =4; //clear timer capture flag
 		while((TIMER2_RIS_R & 4)  ==0){};
 		lowEdge = TIMER2_TAR_R;
-		travelTime = (lowEdge - highEdge) * _80MHz_1clock;
+		travelTime = (lowEdge - highEdge) * _16MHz_1clock;
 		if (travelTime < 58) {
 			ddistance = -1;
 		}
@@ -98,7 +98,7 @@ int32_t measureDistanceOnce2(void) {
 		TIMER3_ICR_R =4; //clear timer capture flag
 		while((TIMER3_RIS_R & 4)  ==0){};
 		lowEdge = TIMER3_TAR_R;
-		travelTime = (lowEdge - highEdge) * _80MHz_1clock;
+		travelTime = (lowEdge - highEdge) * _16MHz_1clock;
 		if (travelTime < 58) {
 			ddistance = -1;
 		}

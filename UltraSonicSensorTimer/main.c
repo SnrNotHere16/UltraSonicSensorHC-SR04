@@ -20,7 +20,7 @@ int main(void){
 	char distStr0[20] = "";
 	char distStr1[20] = "";
 	char distStr2[20] = "";
-	PLL_Init();
+	//PLL_Init();
 	UART0_Init();
 	InitRegisters();
   while(1){
