@@ -35,6 +35,10 @@ int main(void){
 		OutSignal(dist);
 	  sprintf(distStr1, "%d cm1     ", dist);
 	  UART_OutString(distStr1); 
+		dist = measureD(2);
+		OutSignal(dist);
+	  sprintf(distStr2, "%d cm2     ", dist);
+	  UART_OutString(distStr2); 
 		delay_Microsecond(10000);
   }
 }
