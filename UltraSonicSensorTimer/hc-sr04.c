@@ -1,5 +1,4 @@
 #include "hc-sr04.h"
-#include "UART.h"
 void delay_Microsecond(uint32_t time);
 void Timer0_init(void);
 
@@ -39,7 +38,7 @@ int32_t measureDistanceOnce(void) {
 		if (travelTime < 58) {
 			ddistance = -1;
 		}
-		else if (travelTime > 11662) {
+		else if (travelTime > 11662) { //change to 23324
 			ddistance = 9999;
 		}
 		else {

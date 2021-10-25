@@ -8,11 +8,10 @@ I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C8A654)
 I (UART.h)(0x6171F8B6)
 I (PLL.h)(0x6171FCC8)
 F (.\hc-sr04.h)(0x61745E94)()
-F (.\hc-sr04.c)(0x617471B8)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\TI\TM4C123-DTM4C1231C3PM-o .\hc-sr04.o --omf_browse .\hc-sr04.crf --depend .\hc-sr04.d)
+F (.\hc-sr04.c)(0x61772F82)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\TI\TM4C123-DTM4C1231C3PM-o .\hc-sr04.o --omf_browse .\hc-sr04.crf --depend .\hc-sr04.d)
 I (hc-sr04.h)(0x61745E94)
 I (tm4c123gh6pm.h)(0x51D4E132)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C8A654)
-I (UART.h)(0x6171F8B6)
 F (.\UART.h)(0x6171F8B6)()
 F (.\UART.c)(0x61747181)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\TI\TM4C123-DTM4C1231C3PM-o .\uart.o --omf_browse .\uart.crf --depend .\uart.d)
 I (UART.h)(0x6171F8B6)
