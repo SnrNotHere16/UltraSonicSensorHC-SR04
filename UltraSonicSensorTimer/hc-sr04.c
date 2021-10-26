@@ -26,9 +26,9 @@ int32_t measureDistanceOnce(void) {
     delay_Microsecond(12);
     GPIO_PORTA_DATA_R &=~TRIGGER0;
     /*Capture firstEgde i.e. rising edge*/
-    TIMER0_ICR_R =4;
+    TIMER0_ICR_R =4; //754 clear timer capture flag
 		
-    while((TIMER0_RIS_R & 4)==0){}; //Wait till captured
+    while((TIMER0_RIS_R & 4)==0){}; //Wait till captured pg.748
 		highEdge =  TIMER0_TAR_R;
 		/*Capture secondEdge i.e. falling edge */
 		TIMER0_ICR_R =4; //clear timer capture flag
