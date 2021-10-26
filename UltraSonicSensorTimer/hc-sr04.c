@@ -26,7 +26,7 @@ int32_t measureDistanceOnce(void) {
     delay_Microsecond(12);
     GPIO_PORTA_DATA_R &=~TRIGGER0;
     /*Capture firstEgde i.e. rising edge*/
-    TIMER0_ICR_R =4; //754 clear timer capture flag
+    TIMER0_ICR_R =4; //pg.754 clear timer capture flag
 		
     while((TIMER0_RIS_R & 4)==0){}; //Wait till captured pg.748
 		highEdge =  TIMER0_TAR_R;
@@ -58,12 +58,12 @@ int32_t measureDistanceOnce1(void) {
     delay_Microsecond(12);
     GPIO_PORTA_DATA_R &=~TRIGGER1;
     /*Capture firstEgde i.e. rising edge*/
-    TIMER2_ICR_R =4;
-    while((TIMER2_RIS_R & 4)==0){}; //Wait till captured
+    TIMER2_ICR_R =4; //pg.754
+    while((TIMER2_RIS_R & 4)==0){}; //Wait till captured pg.748
 		highEdge =  TIMER2_TAR_R;
 		/*Capture secondEdge i.e. falling edge */
-		TIMER2_ICR_R =4; //clear timer capture flag
-		while((TIMER2_RIS_R & 4)  ==0){};
+		TIMER2_ICR_R =4; //clear timer capture flag pg.754
+		while((TIMER2_RIS_R & 4)  ==0){}; //pg.748
 		lowEdge = TIMER2_TAR_R;
 		travelTime = (lowEdge - highEdge) * _16MHz_1clock;
 		if (travelTime < 58) {
@@ -89,13 +89,13 @@ int32_t measureDistanceOnce2(void) {
     delay_Microsecond(12);
     GPIO_PORTA_DATA_R &=~TRIGGER2;
     /*Capture firstEgde i.e. rising edge*/
-    TIMER3_ICR_R =4;
-    while((TIMER3_RIS_R & 4)==0){}; //Wait till captured
+    TIMER3_ICR_R =4; //pg.754
+    while((TIMER3_RIS_R & 4)==0){}; //Wait till captured pg.748
 		highEdge =  TIMER3_TAR_R;
 
 		/*Capture secondEdge i.e. falling edge */
-		TIMER3_ICR_R =4; //clear timer capture flag
-		while((TIMER3_RIS_R & 4)  ==0){};
+		TIMER3_ICR_R =4; //clear timer capture flag pg.754
+		while((TIMER3_RIS_R & 4)  ==0){}; //pg.748
 		lowEdge = TIMER3_TAR_R;
 		travelTime = (lowEdge - highEdge) * _16MHz_1clock;
 		if (travelTime < 58) {
