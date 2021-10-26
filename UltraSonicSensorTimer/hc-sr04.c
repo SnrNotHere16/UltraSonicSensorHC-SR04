@@ -38,7 +38,7 @@ int32_t measureDistanceOnce(void) {
 		if (travelTime < 58) {
 			ddistance = -1;
 		}
-		else if (travelTime > 11662) { //change to 23324, former value: 11662
+		else if (travelTime > 23324) { //change to 23324, former value: 11662
 			ddistance = 9999;
 		}
 		else {
