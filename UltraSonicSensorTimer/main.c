@@ -47,16 +47,16 @@ int main(void){
 		Timer2A_init(); 
 		Timer3A_init();
 		dist = measureD(0);
-		OutSignal(dist);
-	  sprintf(distStr0, "%d cm0     ", dist);
+		OutSignal(dist); //sensor 0 
+	  sprintf(distStr0, "%d cm0 ", dist);
 		UART_OutString(distStr0); 
 		dist = measureD(1);
-		OutSignal(dist);
-	  sprintf(distStr1, "%d cm1     ", dist);
+		//OutSignal(dist); //sensor 1 
+	  sprintf(distStr1, "%d cm1 ", dist);
 	  UART_OutString(distStr1); 
 		dist = measureD(2);
-		OutSignal(dist);
-	  sprintf(distStr2, "%d cm2     ", dist);
+	//	OutSignal(dist); //sensor 2
+	  sprintf(distStr2, "%d cm2\r\n", dist);
 	  UART_OutString(distStr2); 
 		delay_Microsecond(10000);
   }
