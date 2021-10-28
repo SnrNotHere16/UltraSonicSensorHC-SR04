@@ -43,7 +43,7 @@ int main(void){
 	UART0_Init();
 	InitRegisters();
 	Timer0A_init();
-  Timer2A_init(); 
+        Timer2A_init(); 
 	Timer3A_init();
   while(1){
 		dist = measureD(0);
