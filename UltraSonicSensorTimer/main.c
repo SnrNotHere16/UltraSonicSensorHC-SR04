@@ -42,10 +42,10 @@ int main(void){
 	char distStr2[20] = "";
 	UART0_Init();
 	InitRegisters();
+	Timer0A_init();
+  Timer2A_init(); 
+	Timer3A_init();
   while(1){
-    Timer0A_init();
-		Timer2A_init(); 
-		Timer3A_init();
 		dist = measureD(0);
 		OutSignal(dist); //sensor 0 
 	  sprintf(distStr0, "%d cm0 ", dist);
